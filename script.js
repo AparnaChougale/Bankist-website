@@ -1,4 +1,5 @@
 'use strict';
+import img from 'url:./img/*.jpg';
 
 ///////////////////////////////////////
 // Modal window
@@ -43,48 +44,24 @@ const section1 = document.querySelector('#section--1');
 // scrolling
 btnScrollTo.addEventListener('click', function (e) {
   const s1coord = section1.getBoundingClientRect();
-  console.log(s1coord);
+  // console.log(s1coord);
 
   // Currect scroll x/y cordi
-  console.log(
-    'Current scroll (X/Y) cordi: ',
-    window.pageXOffset,
-    window.pageYOffset
-  );
-
-  // Height and width of viewport
-  console.log(
-    'height/width viewport:',
-    document.documentElement.clientHeight,
-    document.documentElement.clientWidth
-  );
-  // Old way-1
-  // window.scrollTo(
-  //   s1coord.left + window.pageXOffset,
-  //   s1coord.top + window.pageYOffset
+  // console.log(
+  //   'Current scroll (X/Y) cordi: ',
+  //   window.pageXOffset,
+  //   window.pageYOffset
   // );
 
-  // Old way-2 (as a object)
-  // window.scrollTo({
-  //   left: s1coord.left + window.pageXOffset,
-  //   top: s1coord.top + window.pageYOffset,
-  //   behavior: 'smooth',
-  // });
+  // Height and width of viewport
+  // console.log(
+  //   'height/width viewport:',
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // );
 
   section1.scrollIntoView('smooth');
 });
-
-// navigation scroll
-
-// way-1 : it creates function(e){} for each element, which is not ideal when we have housands of elements
-// document.querySelectorAll('.nav__link').forEach(function (el) {
-//   el.addEventListener('click', function (e) {
-//     e.preventDefault();
-//     const id = this.getAttribute('href');
-//     console.log(id);
-//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-//   });
-// });
 
 // way-2 : Event deligation using bubbling
 
@@ -98,7 +75,7 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   if (e.target.classList.contains('nav__link')) {
     // console.log(e.target);
     const id = e.target.getAttribute('href');
-    console.log(id);
+    // console.log(id);
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
@@ -114,7 +91,7 @@ const tabsContent = document.querySelectorAll('.operations__content');
 
 tabContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
-  console.log(clicked);
+  // console.log(clicked);
 
   // Guard clause
   if (!clicked) return;
@@ -127,7 +104,7 @@ tabContainer.addEventListener('click', function (e) {
   clicked.classList.add('operations__tab--active');
 
   // Activate content area
-  console.log(clicked.dataset.tab);
+  // console.log(clicked.dataset.tab);
   document
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
@@ -152,15 +129,6 @@ const handleOver = function (e, opacity) {
     logo.style.opacity = this;
   }
 };
-
-// way -1
-// nav.addEventListener('mouseover', function (e) {
-//   handleOver(e, 0.5);
-// });
-
-// nav.addEventListener('mouseout', function (e) {
-//   handleOver(e, 1);
-// });
 
 // way-2
 // passing "argument" in handle function
@@ -235,22 +203,13 @@ imgTarget.forEach(img => imgObserver.observe(img));
 
 const slider = function () {
   const slides = document.querySelectorAll('.slide');
-  console.log(slides);
+  // console.log(slides);
   const btnLeft = document.querySelector('.slider__btn--left');
   const btnRight = document.querySelector('.slider__btn--right');
   const dotConatiner = document.querySelector('.dots');
 
-  // const slider = document.querySelector('.slider');
-  // slider.style.transform = 'scale(0.5)';
-  // slider.style.overflow = 'visible';
-
   let curSlide = 0;
   const maxSlide = slides.length;
-
-  // slides.forEach(
-  //   (s, i) => (s.style.transform = `translateX(${100 * i}%)`)
-  //   // 0%, 100%, 200%
-  // );
 
   // create Dots
   const createDots = function () {
@@ -280,7 +239,7 @@ const slider = function () {
     );
   };
 
-  // // Next slide
+  // Next slide
   const nextSlide = function () {
     if (curSlide === maxSlide - 1) {
       curSlide = 0;
@@ -309,22 +268,12 @@ const slider = function () {
   init();
 
   btnRight.addEventListener('click', nextSlide);
-  // function () {
-  // if (curSlide === maxSlide - 1) {
-  //   curSlide = 0;
-  // } else {
-  //   curSlide++;
-  // }
-  // goToSlide(curSlide); // curSlide=1 : -100%, 0%, 100%, 200%
-  // slides.forEach(
-  //   (s, i) => (s.style.transform = `translateX(${100 * (i - curSlide)}%)`)
-  // );
-  // });
+
   btnLeft.addEventListener('click', prevSlide);
 
   // slide with arrow keys
   document.addEventListener('keydown', function (e) {
-    console.log(e);
+    // console.log(e);
     if (e.key === 'ArrowLeft') prevSlide();
     // if (e.key === 'ArrowRight') nextSlide();
     // short circuit
