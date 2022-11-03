@@ -1,8 +1,4 @@
 'use strict';
-import img from 'url:./img/*.jpg';
-
-///////////////////////////////////////
-// Modal window
 
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
@@ -20,10 +16,6 @@ const closeModal = function () {
   overlay.classList.add('hidden');
 };
 
-// Old way
-// for (let i = 0; i < btnsOpenModal.length; i++)
-// btnsOpenModal[i].addEventListener('click', openModal);
-
 // New way
 btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 
@@ -37,28 +29,11 @@ document.addEventListener('keydown', function (e) {
 });
 
 const btnScrollTo = document.querySelector('.btn--scroll-to');
-
 const section1 = document.querySelector('#section--1');
-// console.log(section1);
 
 // scrolling
 btnScrollTo.addEventListener('click', function (e) {
   const s1coord = section1.getBoundingClientRect();
-  // console.log(s1coord);
-
-  // Currect scroll x/y cordi
-  // console.log(
-  //   'Current scroll (X/Y) cordi: ',
-  //   window.pageXOffset,
-  //   window.pageYOffset
-  // );
-
-  // Height and width of viewport
-  // console.log(
-  //   'height/width viewport:',
-  //   document.documentElement.clientHeight,
-  //   document.documentElement.clientWidth
-  // );
 
   section1.scrollIntoView('smooth');
 });
@@ -81,17 +56,14 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 // Tabbed components
-
 const tabContainer = document.querySelector('.operations__tab-container');
-// console.log(tabContainer);
+
 const tabs = document.querySelectorAll('.operations__tab');
-// console.log(tabs);
+
 const tabsContent = document.querySelectorAll('.operations__content');
-// console.log(tabsContent);
 
 tabContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
-  // console.log(clicked);
 
   // Guard clause
   if (!clicked) return;
@@ -104,7 +76,6 @@ tabContainer.addEventListener('click', function (e) {
   clicked.classList.add('operations__tab--active');
 
   // Activate content area
-  // console.log(clicked.dataset.tab);
   document
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
@@ -112,11 +83,9 @@ tabContainer.addEventListener('click', function (e) {
 
 // Menu fade animation
 const nav = document.querySelector('.nav');
-// console.log(nav);
 
 // way-1
 const handleOver = function (e, opacity) {
-  // console.log(this, e.currentTarget);
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
     const siblings = link.closest('.nav').querySelectorAll('.nav__link');
@@ -139,12 +108,10 @@ nav.addEventListener('mouseout', handleOver.bind(1));
 // Sticky navigation
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
-// console.log(navHeight);
 
 const stickyNav = function (entries) {
   const [entry] = entries;
-  // console.log(entry);
-  // console.log('inter', !entry.isIntersecting);
+
   if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
 };
@@ -177,7 +144,7 @@ allSelections.forEach(function (section) {
 });
 
 // Lazy image loading
-const imgTarget = document.querySelectorAll('img[data-src]');
+const imgTarget = document.querySelectorAll('img[srcset]');
 const loadImg = function (entries, observer) {
   const [entry] = entries;
 
@@ -197,10 +164,12 @@ const imgObserver = new IntersectionObserver(loadImg, {
   threshold: 0,
   rootMargin: '200px',
 });
-imgTarget.forEach(img => imgObserver.observe(img));
+imgTarget.forEach(function (img) {
+  console.log(img);
+  imgObserver.observe(img);
+});
 
 // Slider
-
 const slider = function () {
   const slides = document.querySelectorAll('.slide');
   // console.log(slides);
@@ -273,7 +242,6 @@ const slider = function () {
 
   // slide with arrow keys
   document.addEventListener('keydown', function (e) {
-    // console.log(e);
     if (e.key === 'ArrowLeft') prevSlide();
     // if (e.key === 'ArrowRight') nextSlide();
     // short circuit
