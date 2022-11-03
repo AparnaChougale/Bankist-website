@@ -31,26 +31,24 @@ document.addEventListener('keydown', function (e) {
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
-// scrolling
+// Scrolling
 btnScrollTo.addEventListener('click', function (e) {
   const s1coord = section1.getBoundingClientRect();
 
   section1.scrollIntoView('smooth');
 });
 
-// way-2 : Event deligation using bubbling
+// Event deligation using bubbling
 
 // 1. add an event to common parent element
 // 2. determine what element originated the event
 document.querySelector('.nav__links').addEventListener('click', function (e) {
-  // console.log(e.target);
   e.preventDefault();
 
   // Matching strategy
   if (e.target.classList.contains('nav__link')) {
-    // console.log(e.target);
     const id = e.target.getAttribute('href');
-    // console.log(id);
+
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
@@ -92,14 +90,12 @@ const handleOver = function (e, opacity) {
     const logo = link.closest('.nav').querySelector('img');
 
     siblings.forEach(el => {
-      // console.log(el);
       if (el !== link) el.style.opacity = this;
     });
     logo.style.opacity = this;
   }
 };
 
-// way-2
 // passing "argument" in handle function
 nav.addEventListener('mouseover', handleOver.bind(0.5));
 
@@ -165,14 +161,13 @@ const imgObserver = new IntersectionObserver(loadImg, {
   rootMargin: '200px',
 });
 imgTarget.forEach(function (img) {
-  console.log(img);
   imgObserver.observe(img);
 });
 
 // Slider
 const slider = function () {
   const slides = document.querySelectorAll('.slide');
-  // console.log(slides);
+
   const btnLeft = document.querySelector('.slider__btn--left');
   const btnRight = document.querySelector('.slider__btn--right');
   const dotConatiner = document.querySelector('.dots');
@@ -192,7 +187,6 @@ const slider = function () {
 
   // Activate dot
   const activateDot = function (slide) {
-    // console.log(slide);
     document
       .querySelectorAll('.dots__dot')
       .forEach(dot => dot.classList.remove('dots__dot--active'));
@@ -243,12 +237,11 @@ const slider = function () {
   // slide with arrow keys
   document.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowLeft') prevSlide();
-    // if (e.key === 'ArrowRight') nextSlide();
-    // short circuit
+
     e.key === 'ArrowRight' && nextSlide();
   });
 
-  // slide when clicked on dots - using Event deligation instead of attaching event handle to each dot - event handler is attached to parent class i.e. dots
+  // Slide when clicked on dots - using Event deligation instead of attaching event handle to each dot - event handler is attached to parent class i.e. dots
   dotConatiner.addEventListener('click', function (e) {
     if (e.target.classList.contains('dots__dot')) {
       const slide = e.target.dataset.slide;
